@@ -47,13 +47,16 @@ public class StudentController {
 	
 	// http://127.0.0.1:8080/student/findAllStudent
 	@GetMapping("findAllStudent")
-	public List<Student> findAllStudent(){
+	public MsgResponse findAllStudent(){
 		try {
+			//调用service代码来进行
 			List<Student> list = studentService.findAll();
-			return list;
+			return MsgResponse.success("存在学生表", list);
 		} catch (Exception e) {
+			//先打印错误信息让后台开发者知道问题所在
+			//报错返回错误信息。让前端开发者知道问题所在
 			e.printStackTrace();
-			return null;
+			return MsgResponse.error(e.getMessage());
 		}
 	}
 	
@@ -62,7 +65,7 @@ public class StudentController {
 		try {
 			studentService.delete(id);
 			return MsgResponse.success("删除成功！", null);
-			
+			//返回值为空 ，因为通过id删除学生对象不需要返回值
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -73,9 +76,9 @@ public class StudentController {
 	@GetMapping("findStudentById")
 	public MsgResponse findStudentById(long id){
 		try {
-			studentService.findById(id);
+			 Student student=studentService.findById(id);
 			
-			return MsgResponse.success("查询成功！！", null);
+			return MsgResponse.success("查询成功！！", student);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return MsgResponse.error(e.getMessage());

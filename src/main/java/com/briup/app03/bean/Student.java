@@ -1,5 +1,5 @@
 package com.briup.app03.bean;
-
+/*学生实体*/
 public class Student {
 	
 	

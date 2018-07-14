@@ -23,10 +23,18 @@ public class StudentServiceImpl implements IStudentService {
 	
 	@Override
 	public List<Student> findAll() throws Exception{
-		
+		//先通过studentMapper对象查询学生链表
 		List<Student> list =studentMapper.findAll();
+		
+		if(list !=null){
 		return list;
+		}else{
+			throw new Exception();
+		}
+		
 	}
+	
+	
 	public Student findById(long id) throws Exception{
 		Student student=studentMapper.findById(id);
 		if(student!=null){
@@ -52,6 +60,7 @@ public class StudentServiceImpl implements IStudentService {
 	
 	//
     @Override
+    //通过id更新学生表 
      public void update(Student student) throws Exception{
     	Student newStudent=studentMapper.findById(student.getId());
     	if(newStudent!=null){
