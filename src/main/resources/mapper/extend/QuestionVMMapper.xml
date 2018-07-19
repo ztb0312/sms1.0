@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.app03.dao.extend.QuestionVMMapper">
+	<!--查询所有问题信息    id,name, questiontype-->
+	<!-- QuestionVM
+	   column -property
+	   id -id,
+	   name -name,
+	   questiontype -qustiontype
+	 
+	-->
+	
+	<select id="findAllQuestionVM" resultMap="QuestionVMResultMap">
+		select * from poll_question
+	</select>
+	<select id="findByIdQuestionVM" resultMap="QuestionVMResultMap">
+		select * from poll_question where id=#{id}
+	</select>
+
+	<resultMap type="com.briup.app03.vm.QuestionVM" id="QuestionVMResultMap">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="questiontype" property="questiontype"/>
+         <collection 
+             column="id"
+             property="options"
+             select="com.briup.app03.dao.OptionMapper.findByQuestionId">
+     </collection>
+     <collection 
+             column="id"
+             property="qqVM"
+             select="com.briup.app03.dao.extend.QqVMMapper.findAllQuestionnaire">
+     </collection>
+	</resultMap>
+	</mapper>

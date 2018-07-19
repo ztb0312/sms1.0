@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.briup.app03.dao.QqMapper">
+	<!--查询所有学校信息 -->
+
+	<select id="findAll" resultType="com.briup.app03.bean.Qq">
+		select * from poll_qq
+	</select>
+	<!-- -->
+	<!-- 通过id 查询桥表信息 -->
+	<select id="findByQuestionId" parameterType="long"
+		resultType="com.briup.app03.bean.Qq">
+		select * from poll_qq where question_id=#{id}
+	</select>
+	<!-- -->
+	<!-- 保存桥表信息 -->
+	<insert id="save" parameterType="com.briup.app03.bean.Qq">
+		insert into poll_qq
+		values(null,#{question_id},#{questionnaire_id})
+	</insert>
+	<!-- -->
+	<!-- 修改桥表信息 -->
+	<update id="update" parameterType="com.briup.app03.bean.Qq">
+		update poll_qq
+		set question_id
+		=#{question_id}, questionnaire_id=#{questionnaire_id}
+		where id = #{id}
+	</update>
+	<!-- -->
+	<!-- 删除桥表信息 -->
+	<delete id="delete" parameterType="long">
+		delete from poll_qq where
+		id=#{id}
+
+	</delete>
+	<!-- -->
+</mapper>
